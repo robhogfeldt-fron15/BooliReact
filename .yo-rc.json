@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "reactEs6",
+    "style": "css",
+    "postcss": true
+  }
+}
