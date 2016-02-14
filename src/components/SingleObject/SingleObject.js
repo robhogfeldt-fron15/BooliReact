@@ -3,11 +3,10 @@ require('../../../app/bower_components/material-design-lite/material.js');
 var querystring = require('querystring');
 var crypto = require('crypto');
 var shasum = crypto.createHash('sha1');
-var auth = {};
-auth.callerId = '[ID]';
-auth.time = Math.round(Date.now() / 1000);
-auth.unique = crypto.randomBytes(Math.ceil(16/2)).toString('hex').slice(0, 16);
-auth.hash = shasum.update(auth.callerId + auth.time + '[KEY]' + auth.unique).digest('hex');
+
+import myAuth from '../../config/auth';
+var auth = myAuth;
+
 
 
 class SingleObject extends React.Component {

@@ -8,9 +8,9 @@ import $ from '../../bower_components/jquery/dist/jquery';
 
 class DataListItemWrapper extends React.Component {
   constructor(props) {
-          super(props);
+    super(props);
 
-      }
+  }
   getIcon(val){
     if (val==='Lägenhet') {
       return  'home';
@@ -18,10 +18,10 @@ class DataListItemWrapper extends React.Component {
     return 'business';
   }
 
-_handleClick(e){
+  _handleClick(e){
     var parentLi =   $(e.target).closest('li').toggleClass( "hilight" );
-  console.log(parentLi);
-}
+    console.log(parentLi);
+  }
 
   render(){
     return(
@@ -44,4 +44,4 @@ _handleClick(e){
     }
 
   }
-export default DataListItemWrapper;
+  export default DataListItemWrapper;

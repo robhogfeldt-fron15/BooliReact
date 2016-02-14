@@ -1,16 +1,17 @@
 // var fetch = require('fetch');
 
 //global $
-require('normalize.css');
-require('styles/App.scss');
-// require('../../app/bower_components/material-design-lite/material.js');
-require('../../bower_components/bootstrap/dist/css/bootstrap.css');
+
 import React from 'react';
 import DataList from './data-list';
-
+import SearchBar from './search/SearchBar';
+import myAuth from '../config/auth';
 
 import styles from '../styles/datalist-style';
 let yeomanImage = require('../images/booli.png');
+
+var auth = myAuth;
+var querystring = require('querystring');
 
 
 
@@ -32,6 +33,7 @@ class AppComponent extends React.Component {
       <div className='index container'>
         <img src={yeomanImage} alt='Yeoman Generator' />
         <div className='notice'><h2>Det perfekta appnamnet</h2></div>
+
 
         {this.props.children}
 
