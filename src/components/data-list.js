@@ -1,4 +1,4 @@
-//global $
+
 import React from 'react';
 import DataListItemWrapper from './data-listItemWrapper';
 import SearchBar from './search/SearchBar';
@@ -18,18 +18,20 @@ var url = 'http://robs-cors-server.herokuapp.com/http://api.booli.se/listings/?q
 class DataList extends React.Component {
   constructor() {
     super();
-    this.state = { data: [] }
+    this.state = { data: [], url: 'www'}
 
   }
 
   loadCommentsFromServer() {
+    this.setState({url: url});
     fetch(url, {
       method: 'get'
     }).then(function(response) {
       return	response.json();
     }).then(function(j){
       console.log(j.listings);
-      this.setState({data: j.listings});
+      console.log(this.state.url);
+      this.setState({data: j.listings, url:this.state.url});
     }.bind(this));
   }
 
@@ -76,7 +78,7 @@ class DataList extends React.Component {
         </div>
         <ul className='demo-list-three mdl-list' id="parent-list" >
           {this.state.data.map(function(data, i) {
-            return <DataListItemWrapper data={data} key={data.booliId} onClick={self._handleClick.bind(this)}></DataListItemWrapper>
+            return <DataListItemWrapper data={data} key={data.booliId} related={self.state.url} onClick={self._handleClick.bind(this)}></DataListItemWrapper>
           })}
         </ul>
       </div>)

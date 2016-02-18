@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+require('styles/searchBar-style.scss');
 
 
 class SearchBar extends React.Component {
@@ -34,7 +34,7 @@ onSubmit(e) {
 
   render() {
     return (
-          <div className="col-lg-12">
+          <div className="col-lg-12 searchWrap">
             <form onSubmit={this.onSubmit.bind(this)}>
               <div className="panel-heading clearfix">
 
@@ -61,9 +61,11 @@ onSubmit(e) {
                      /> Hus
                    </label>
                  </div>
-               <button  type="submit">Sök</button>
+
+               <button   className="btn" type="submit">Sök</button>
                  </div>
              </form>
+
           </div>
     );
   }

@@ -7,29 +7,48 @@ var shasum = crypto.createHash('sha1');
 import myAuth from '../../config/auth';
 var auth = myAuth;
 
-
+import RelatedObject from '../RelatedObjects/related-object';
 
 class SingleObject extends React.Component {
   constructor() {
      super();
-     this.state = { data: {}, address: {}, image: ''
+     this.state = { data: {},  address: {}, image: '', related: [], realatedImg: ''
    }
 }
 
-   componentDidMount() {
-     let id = this.props.params.singleId;
-     var url = 'http://robs-cors-server.herokuapp.com/http://api.booli.se/listings/' + id + '?' + querystring.stringify(auth);
+   componentWillMount() {
+     let { query } = this.props.location;
+     console.log(this.props.location);
+
+     let id = this.props.singleId;
+     var url = 'http://robs-cors-server.herokuapp.com/http://api.booli.se/listings/' + query.singleId + '?' + querystring.stringify(auth);
      fetch(url, {
          method: 'get'
      }).then(function(response) {
          return	response.json();
      }).then(function(j){
         console.log(j);
-        this.setState({data: j.listings[0],image:'https://api.bcdn.se/cache/primary_' + id  +'_140x94.jpg', address:j.listings[0].location.address });
+        this.setState({data: j.listings[0],image:'https://api.bcdn.se/cache/primary_' + query.singleId  +'_140x94.jpg', address:j.listings[0].location.address });
      }.bind(this));
+
+
     }
 
 
+    componentDidMount() {
+      let { query } = this.props.location;
+      console.log(this.props.location);
+      console.log(query.url);
+
+      fetch(query.url, {
+        method: 'get'
+      }).then(function(response) {
+        return	response.json();
+      }).then(function(j){
+        console.log(j.listings);
+        this.setState({related: j.listings});
+      }.bind(this));
+     }
 
 
   render() {
@@ -84,6 +103,21 @@ class SingleObject extends React.Component {
           <div className="material-icons mdl-badge mdl-badge--overlap" data-badge="♥">home</div>
         </div>
       </div>
+      <dl class="typo-styles">
+
+
+
+    <dd>
+      <div className="typo-styles__demo mdl-typography--display-1">Liknande objekt</div>
+
+    </dd>
+
+  </dl>
+        <ul className='demo-list-three mdl-list' id="parent-list" >
+          {this.state.related.map(function(data) {
+            return <RelatedObject data={data} key={data.booliId}></RelatedObject>
+          })}
+        </ul>
     </div>
     );
   }
